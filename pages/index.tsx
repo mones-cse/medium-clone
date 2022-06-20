@@ -1,8 +1,9 @@
 import type { NextPage } from "next";
 import Head from "next/head";
 import Header from "../components/Header";
-import { sanityClient } from "../sanity";
+import { sanityClient, urlFor } from "../sanity";
 import { Post } from "../typing";
+import Link from "next/link";
 
 interface Props {
   posts: [Post];
@@ -39,6 +40,43 @@ const Home: NextPage<Props> = ({ posts }) => {
           src="static/medium_sm_logo.png"
           alt=""
         />
+      </div>
+      {/*post*/}
+      <div
+        className={
+          " gap-y-4 grid grid-cols-1 p-2 md:grid-cols-2 p-6 gap-4 gap-y-4 lg:grid-cols-3 lg:gap-6 gap-y-6 p-6"
+        }
+      >
+        {posts.map((post) => (
+          <Link key={post.id} href={`/post/${post.slug.current}`}>
+            <div
+              className={
+                "group cursor-pointer border rounded-lg overflow-hidden"
+              }
+            >
+              <img
+                className={
+                  "h-60 w-full object-cover group-hover:scale-105 transition-transform duration-200"
+                }
+                src={urlFor(post.mainImage).url()}
+                alt=""
+              />
+              <div className={"flex justify-between p-5 bg-white"}>
+                <div>
+                  <p className={"text-lg font-bold"}>{post.title}</p>
+                  <p className={"text-xs"}>
+                    {post.description} by {post.author.name}
+                  </p>
+                </div>
+                <img
+                  className={"h-12 w-12 rounded-full"}
+                  src={urlFor(post.author.image).url()}
+                  alt=""
+                />
+              </div>
+            </div>
+          </Link>
+        ))}
       </div>
     </div>
   );
