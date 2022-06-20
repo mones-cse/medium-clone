@@ -60,6 +60,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
   }
   return {
     props: { post }, // will be passed to the page component as props
+    revalidate: 60 * 60 * 24, // after 1 day it will update old cache
   };
 };
 
