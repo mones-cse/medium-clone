@@ -2,6 +2,7 @@ export interface Post {
   _id: string;
   createdAt: string;
   updatedAt: string;
+  publishedAt: string;
   author: {
     name: string;
     image: string;

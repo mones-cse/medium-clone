@@ -15,7 +15,28 @@ const Post = ({ post }: Props) => {
   return (
     <main>
       <Header />
-      <div>{slug}</div>
+      <img
+        src={urlFor(post.mainImage)}
+        alt=""
+        className={"w-full h-40 object-cover"}
+      />
+      <article>
+        <h1 className={"text-3xl mt-10 mb-3"}>{post.title}</h1>
+        <h2 className={"text-xl font-light text-gray-500 mb-2"}>
+          {post.description}
+        </h2>
+        <div>
+          <img
+            src={urlFor(post.author.image)}
+            alt=""
+            className={"h-10 w-10 rounded-full"}
+          />
+          <p>
+            Blog posted by {post.author.name} published at{" "}
+            {new Date(post.publishedAt).toLocaleDateString()}
+          </p>
+        </div>
+      </article>
     </main>
   );
 };
@@ -50,7 +71,8 @@ export const getStaticProps: GetStaticProps = async (context) => {
           },
         description,
         mainImage,
-        slug
+        slug,
+        publishedAt
         }`;
   const post = await sanityClient.fetch(queryForPost);
   if (post.length == 0) {
