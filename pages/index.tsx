@@ -48,7 +48,7 @@ const Home: NextPage<Props> = ({ posts }) => {
         }
       >
         {posts.map((post) => (
-          <Link key={post.id} href={`/post/${post.slug.current}`}>
+          <Link key={post._id} href={`/post/${post.slug.current}`}>
             <div
               className={
                 "group cursor-pointer border rounded-lg overflow-hidden"

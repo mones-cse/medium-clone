@@ -1,3 +1,4 @@
+import { TypedObject } from "@sanity/types";
 export interface Post {
   _id: string;
   createdAt: string;
@@ -7,7 +8,7 @@ export interface Post {
     name: string;
     image: string;
   };
-  body: [object];
+  body: [TypedObject];
   slug: {
     current: string;
   };
