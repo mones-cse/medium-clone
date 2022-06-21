@@ -299,7 +299,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
         publishedAt
         }`;
   const post = await sanityClient.fetch(queryForPost);
-  if (post.length == 0) {
+  if (!post) {
     return {
       notFound: true,
     };
