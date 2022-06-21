@@ -103,3 +103,5 @@ slug
   };
 };
 export default Home;
+
+//todo : continue from here https://youtu.be/6fNy0iD3hsk?t=8321

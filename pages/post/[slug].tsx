@@ -7,6 +7,11 @@ import { PortableText } from "@portabletext/react";
 import Head from "next/head";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useState } from "react";
+// todo handle this typescript issues
+// @ts-ignore
+import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
+// @ts-ignore
+import { vscDarkPlus } from "react-syntax-highlighter/dist/cjs/styles/prism";
 
 interface Props {
   post: Post;
@@ -30,6 +35,14 @@ const ptComponents = {
             .auto("format")
             .url()}
         />
+      );
+    },
+    code: ({ value }: any) => {
+      const { language, code } = value;
+      return (
+        <SyntaxHighlighter language={language || "text"} style={vscDarkPlus}>
+          {code}
+        </SyntaxHighlighter>
       );
     },
   },
@@ -97,6 +110,7 @@ interface iFormInput {
 }
 
 const Post = ({ post }: Props) => {
+  console.info({ post });
   const {
     register,
     handleSubmit,
@@ -228,6 +242,19 @@ const Post = ({ post }: Props) => {
             />
           </form>
         )}
+        <div className="my-10 mx-auto flex max-w-2xl flex-col space-y-2 rounded-lg p-10 shadow-md shadow-yellow-500">
+          <h3 className="mb-5 text-4xl font-light">Comments</h3>
+          <hr className="pb-2" />
+
+          {post.comments.map((comment) => (
+            <div key={comment._id}>
+              <p>
+                <span className="text-yellow-600">{comment.name}</span>:{" "}
+                {comment.comment}
+              </p>
+            </div>
+          ))}
+        </div>
       </>
     </div>
   );
@@ -261,6 +288,10 @@ export const getStaticProps: GetStaticProps = async (context) => {
           name,
           image
           },
+         'comments': *[
+            _type == "comment" && 
+            post._ref == ^._id && 
+            approved == true],
         body,
         description,
         mainImage,
